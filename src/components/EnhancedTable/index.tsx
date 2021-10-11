@@ -20,6 +20,8 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 interface Data {
   calories: number;
@@ -402,6 +404,9 @@ export default function EnhancedTable() {
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />
+      <Box sx={{ display: 'flex' }}>
+      <CircularProgress />
+    </Box>
     </Box>
   );
 }
