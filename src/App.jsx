@@ -1,12 +1,13 @@
 import React from 'react';
-import Header from './components/Header';
-import MainText from './components/MainText';
+import Routes from './routes/routes'
 
-function App() {
+import GlobalStyles from './styles/global'
+
+  export function App() { 
   return (
     <>
-      <Header />
-      <MainText />
+      <Routes/>
+      <GlobalStyles/>
     </>
   )
 }
