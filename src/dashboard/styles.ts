@@ -21,10 +21,10 @@ export const ButtonContainer = styled.div`
       background-color: transparent;
       border: none;
       span {
-        font-size: 22px;
+        font-size: 20px;
       }
       svg{
-        margin-right: 18px;
+        margin-right: 15px;
       }
     }
  `
@@ -33,19 +33,19 @@ export const InputSection = styled.div`
   margin: 50px auto;
   display: flex;
   align-items: center;
-  padding: 16px;
+  padding: 15px;
   background-color:#fff;
 
   svg {
     background-color:#fff;
-    height: 48px;
+    height: 50px;
     margin-right: 20px;
   }
 
   input {
     width: 100%;
     border: none;
-    height: 48px;
+    height: 50px;
     padding: 20px;
     background-color:transparent;
   }
@@ -61,10 +61,10 @@ export const ButtonGenderMale = styled.button<ButtonProps>`
     border: none;
     border-radius: 10px;
 
-    margin-right: 16px;
-    margin-bottom: 16px;
+    margin-right: 18px;
+    margin-bottom: 18px;
     width: 120px;
-    height: 30px;
+    height: 40px;
     ${props => props.gender === 'male' && css`
     background-color: black;
     color: #fff;
@@ -76,9 +76,9 @@ export const ButtonGenderFemale = styled.button<ButtonProps>`
     border: none;
     border-radius: 10px;
 
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     width: 120px;
-    height: 30px;
+    height: 40px;
     ${props => props.gender === 'female' && css`
     background-color: black;
     color: #fff;
@@ -88,7 +88,7 @@ export const ButtonGenderFemale = styled.button<ButtonProps>`
 export const NationalityContainer = styled.div`
   display: flex;
   align-items:center;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   margin-left: 22px;
   p {
     margin-right: 16px;
@@ -96,7 +96,7 @@ export const NationalityContainer = styled.div`
   select {
     border: none;
     width: 64px;
-    height: 30px;
+    height: 40px;
     border-radius: 10px;
   }
 ` 

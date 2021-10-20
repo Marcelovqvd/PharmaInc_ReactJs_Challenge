@@ -1,53 +1,58 @@
 import {  useEffect, useState, ChangeEvent } from 'react';
 
-import {TableRow, TableHead, Table, TableBody, 
-  TableContainer, Paper} from '@material-ui/core';
-import {Delete, Search} from '@material-ui/icons';
+import {TableRow, TableHead, Table, TableBody, TableContainer, Paper} from '@material-ui/core';
+import {Delete, Search, AccountCircle} from '@material-ui/icons';
 import { AiOutlineReload } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
 import Header from '../components/Header';
+import UserModal from '../components/UserModal';
 import { useListUsersContext } from '../context/listUsersContext';
 import { UsersDataProps } from '../services/types';
 import api from '../services/api';
-import formatDate from '../services/formattedDate';
+import formattedDate from '../services/formattedDate';
 
-import { Container, ButtonContainer,
-  InputSection, StyledHeadTableCell,
-  StyledBodyTableCell, FilterContainer, 
-  ButtonGenderFemale, ButtonGenderMale,
-  NationalityContainer} from './styles'
+import { 
+  Container, 
+  ButtonContainer,
+  InputSection, 
+  StyledHeadTableCell,
+  StyledBodyTableCell, 
+  FilterContainer, 
+  ButtonGenderFemale, 
+  ButtonGenderMale,
+  NationalityContainer
+} from './styles'
 
 
 const Dashboard = () => {
-  const { getUsersData, usersData } = useListUsersContext();
+  const { getUsersData, usersData, handleModal} = useListUsersContext();
   
   const [usersList, setUsersList] = useState<UsersDataProps[]>([]);
   const [filteredList, setFilteredList] = useState<UsersDataProps[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [gender, setGender] = useState<string>('');
-
   const [usersPerPage, setUsersPerPage] = useState(10);
-
   const indexOfLastUser = usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const paginateUsers = usersList.slice(indexOfFirstUser, indexOfLastUser);
+  const paginate = usersList.slice(indexOfFirstUser, indexOfLastUser);
 
   const nationalities = ["AU", "BR", "CA", "CH", "DE", "DK", "ES",
    "FI", "FR", "GB", "IE", "IR", "NO", "NL", "NZ", "TR", "US"];
 
   
-  async function getData(){
-    const {data} = await api.get("",{params:{ results: 50, seed: 'foobar'}});
-    setUsersList(data);
-    getUsersData(data);
+  async function getData() {
+    const {data} = await api.get("", {params:{ results: 50, seed: 'foobar'}});
+    setUsersList(data.results);
+    getUsersData(data.results);
   }
   
   function filterUsersByGender(param: string){
     if (param === gender) { 
       setUsersList(usersData);
       setGender('');
-    } else { setGender(param);
+    } else { 
+      setGender(param);
       setUsersList(usersData.filter( item => item.gender === param));
     }
   }
@@ -82,17 +87,17 @@ const Dashboard = () => {
       <Header/>
       <InputSection>
         <input onChange={e => handleFilteredUsers(e)} 
-        type="text" placeholder="Search User"/>
+        type="text" placeholder="search user"/>
         <Search/>
       </InputSection>
       <FilterContainer >
         <ButtonGenderMale gender={gender} 
-        onClick={() => filterUsersByGender('male') }>
-          Male
+          onClick={() => filterUsersByGender('male') }>
+            Male
         </ButtonGenderMale>
         <ButtonGenderFemale  gender={gender}
-        onClick={() => filterUsersByGender('female') }>
-          Female
+          onClick={() => filterUsersByGender('female') }>
+            Female
         </ButtonGenderFemale>
         <NationalityContainer>
           <p>Nationality: </p>
@@ -121,7 +126,7 @@ const Dashboard = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {(inputValue.length <  2 ? paginateUsers : filteredList)
+            {(inputValue.length <  2 ? paginate : filteredList)
             .map((user, index) => (
               <TableRow key={index}>
                 <StyledBodyTableCell component="th" scope="row">
@@ -133,7 +138,7 @@ const Dashboard = () => {
                   </p>
                   </StyledBodyTableCell>
                 <StyledBodyTableCell >
-                  <p>{formatDate(user.dob.date)}</p>
+                  <p>{formattedDate(user.dob.date)}</p>
                 </StyledBodyTableCell>
                 <StyledBodyTableCell>
                   <div>
@@ -141,8 +146,8 @@ const Dashboard = () => {
                       <Delete/>
                     </button>
                     <Link to={`/${user.login.username}`}>
-                      <button>
-                        <p>Modal</p>
+                      <button onClick={() => handleModal(true)}>
+                        <AccountCircle/>
                       </button>
                     </Link>
                   </div>
@@ -152,6 +157,7 @@ const Dashboard = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <UserModal />
       <ButtonContainer>
         <button onClick={() => setUsersPerPage(prevState => prevState + 10)}>
           <AiOutlineReload size={22}/>

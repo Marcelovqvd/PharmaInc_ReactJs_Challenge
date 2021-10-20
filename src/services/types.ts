@@ -30,6 +30,8 @@ export type UsersDataProps = {
 export type ListUsersContextProps = {
   usersData: UsersDataProps[];
   getUsersData: (params: UsersDataProps[]) => void;
+  openModal: boolean;
+  handleModal: (param: boolean) => void;
 }
 
 export type ListUsersProviderProps = {
