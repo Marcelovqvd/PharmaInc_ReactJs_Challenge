@@ -28,6 +28,17 @@ export const ButtonContainer = styled.div`
       }
     }
  `
+
+export const ActionsButtons = styled.div`
+  button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    padding: 15px;
+    margin: 5px;
+  }
+`
 export const InputSection = styled.div`
   width: 60%;
   margin: 50px auto;
@@ -39,12 +50,11 @@ export const InputSection = styled.div`
   svg {
     background-color:#fff;
     height: 50px;
-    margin-right: 20px;
   }
 
   input {
     width: 100%;
-    border: none;
+    border: solid 2px;
     height: 50px;
     padding: 20px;
     background-color:transparent;
