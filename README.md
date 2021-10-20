@@ -1,10 +1,8 @@
 # Front-End Challenge 🏅 2021
 
-# Pharma Inc
+## Pharma Inc
 
-## About
-
-[Coodesh front-end challenge](https://lab.coodesh.com/public-challenges/front-end-challenge-2021)
+A Coodesh challenge [Coodesh front-end challenge](https://lab.coodesh.com/public-challenges/front-end-challenge-2021)
 
 
 ## Case
@@ -29,7 +27,7 @@ npm run build
 yarn build
 ```
 
-### Technologies
+## Technologies
 
 - [TypeScript](https://www.typescriptlang.org/docs/)
 - [React.js](https://reactjs.org/)
