@@ -1,7 +1,7 @@
 import {  useEffect, useState, ChangeEvent } from 'react';
 
 import {TableRow, TableHead, Table, TableBody, TableContainer, Paper} from '@material-ui/core';
-import {Delete, Search, AccountCircle} from '@material-ui/icons';
+import {Delete, AccountCircle} from '@material-ui/icons';
 import { AiOutlineReload } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
@@ -21,13 +21,13 @@ import {
   FilterContainer, 
   ButtonGenderFemale, 
   ButtonGenderMale,
+  ActionsButtons,
   NationalityContainer
 } from './styles'
 
 
 const Dashboard = () => {
-  const { getUsersData, usersData, handleModal} = useListUsersContext();
-  
+  const { getUsersData, usersData, handleModal} = useListUsersContext();  
   const [usersList, setUsersList] = useState<UsersDataProps[]>([]);
   const [filteredList, setFilteredList] = useState<UsersDataProps[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
@@ -42,9 +42,9 @@ const Dashboard = () => {
 
   
   async function getData() {
-    const {data} = await api.get("", {params:{ results: 50, seed: 'foobar'}});
-    setUsersList(data.results);
-    getUsersData(data.results);
+    const {data} = await api.get<any>("", {params:{ results: 50, seed: 'foobar'}});
+      setUsersList(data.results);
+      getUsersData(data.results);
   }
   
   function filterUsersByGender(param: string){
@@ -88,7 +88,6 @@ const Dashboard = () => {
       <InputSection>
         <input onChange={e => handleFilteredUsers(e)} 
         type="text" placeholder="search user"/>
-        <Search/>
       </InputSection>
       <FilterContainer >
         <ButtonGenderMale gender={gender} 
@@ -141,7 +140,7 @@ const Dashboard = () => {
                   <p>{formattedDate(user.dob.date)}</p>
                 </StyledBodyTableCell>
                 <StyledBodyTableCell>
-                  <div>
+                  <ActionsButtons>
                     <button onClick={() => handleDelete(user.login.username)}>
                       <Delete/>
                     </button>
@@ -150,7 +149,7 @@ const Dashboard = () => {
                         <AccountCircle/>
                       </button>
                     </Link>
-                  </div>
+                  </ActionsButtons>
                 </StyledBodyTableCell>
               </TableRow>
             ))}
